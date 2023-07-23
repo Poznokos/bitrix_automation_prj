@@ -1,6 +1,4 @@
-from time import sleep
-
-from framework.frames.frame_switcher import switch_to_project_creation_frame
+from framework.frames.frame_switcher import FrameSwitcher
 from framework.url_base.url_base import UrlBase
 from framework.elements.button_element import ButtonElement
 from framework.elements.field_element import FieldElement
@@ -28,7 +26,8 @@ class CreateProjectForm(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        switch_to_project_creation_frame()
+        self.driver = driver
+        FrameSwitcher(self.driver).switch_to_project_creation_frame()
         self.prj_type_project = ButtonElement.locator_xpath(
             '//*[@id="sonet_group_create_popup_form"]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[2]/div[1]')
         self.prj_type_workgroup = ButtonElement.locator_xpath(

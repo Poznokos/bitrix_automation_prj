@@ -12,13 +12,6 @@ class BaseElement:
         self.locator = locator
         self.timeout_limit = 5
 
-    def switch_frame_to_custom(self):
-        iframe = self.find_element(single=False, index=2)
-        self.driver.switch_to.frame(iframe)
-
-    def switch_frame_to_default(self):
-        self.driver.switch_to.default_content()
-
     def click(self):
         self.find_element().click()
 
