@@ -15,19 +15,17 @@ class LoginPage(BasePage):
 
     def do_lgn_success(self, user_name, user_pwd):
         self.login_field.send_keys(user_name)
-        sleep(0.1)
+        sleep(0.1)  # need to be fixed
         self.next_button.click()
         self.password_field.send_keys(user_pwd)
         self.next_button.click()
 
     def do_lgn_fail(self, user_name, user_pwd):
         self.login_field.send_keys(user_name)
-        sleep(0.1)
+        sleep(0.1)  # need to be fixed
         self.next_button.click()
         self.password_field.send_keys(user_pwd)
         self.next_button.click()
 
-
     def reset_pwd(self):
         pass
-

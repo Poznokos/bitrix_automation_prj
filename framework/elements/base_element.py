@@ -12,19 +12,27 @@ class BaseElement:
         self.locator = locator
         self.timeout_limit = 5
 
+    def switch_frame_to_custom(self):
+        iframe = self.find_element(single=False, index=2)
+        self.driver.switch_to.frame(iframe)
+
+    def switch_frame_to_default(self):
+        self.driver.switch_to.default_content()
+
     def click(self):
         self.find_element().click()
-
-    def switch_to_frame(self):
-        self.driver.switch_to.frame(self.locator)
 
     def send_enter(self):
         self.find_element().send_keys(Keys.ENTER)
 
-    def find_element(self):
-        self.wait_for_element()
-        element = self.driver.find_element(self.locator_type, self.locator)
-        return element
+    def find_element(self, single=True, index=0):
+        if single:
+            self.wait_for_element()
+            element = self.driver.find_element(self.locator_type, self.locator)
+            return element
+        else:
+            element = self.driver.find_elements(self.locator_type, self.locator)[index]
+            return element
 
     def check_presence_of_element(self):
         wait = WebDriverWait(self.driver, self.timeout_limit)
@@ -42,22 +50,22 @@ class BaseElement:
 
     @classmethod
     def locator_id(cls, locator):
-        obj = cls(locator_type = By.ID, locator = locator)
+        obj = cls(locator_type=By.ID, locator=locator)
         return obj
 
     @classmethod
     def locator_css(cls, locator):
-        obj = cls(locator_type = By.CSS_SELECTOR, locator = locator)
+        obj = cls(locator_type=By.CSS_SELECTOR, locator=locator)
         return obj
 
     @classmethod
     def locator_class_name(cls, locator):
-        obj = cls(locator_type = By.CLASS_NAME, locator = locator)
+        obj = cls(locator_type=By.CLASS_NAME, locator=locator)
         return obj
 
     @classmethod
     def locator_xpath(cls, locator):
-        obj = cls(locator_type = By.XPATH, locator = locator)
+        obj = cls(locator_type=By.XPATH, locator=locator)
         return obj
 
     @classmethod
