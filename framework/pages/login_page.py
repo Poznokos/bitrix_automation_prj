@@ -7,22 +7,22 @@ from framework.pages.base_page import BasePage
 
 class LoginPage(BasePage):
 
-    def __init__(self, driver):
-        super().__init__(driver)
+    def __init__(self):
+        super().__init__()
         self.login_field = FieldElement.locator_id('login')
         self.password_field = FieldElement.locator_id('password')
         self.next_button = ButtonElement.locator_xpath('//*[@data-action="submit"]')
 
     def do_lgn_success(self, user_name, user_pwd):
         self.login_field.send_keys(user_name)
-        sleep(0.1)  # need to be fixed
+        sleep(0.1)  # needs to be fixed
         self.next_button.click()
         self.password_field.send_keys(user_pwd)
         self.next_button.click()
 
     def do_lgn_fail(self, user_name, user_pwd):
         self.login_field.send_keys(user_name)
-        sleep(0.1)  # need to be fixed
+        sleep(0.1)  # needs to be fixed
         self.next_button.click()
         self.password_field.send_keys(user_pwd)
         self.next_button.click()

@@ -62,5 +62,5 @@ class BaseElement:
         return obj
 
     @classmethod
-    def element_driver(cls, driver):
+    def set_element_driver(cls, driver):
         cls.driver = driver

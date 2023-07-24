@@ -6,7 +6,7 @@ from framework.pages.projects_management import ProjectManagement
 
 def test_login_success(driver):
     driver.get('https://www.bitrix24.net/')
-    login_page = LoginPage(driver)
+    login_page = LoginPage()
     login_page.do_lgn_success('bitrixautouser@gmail.com', 'pLUQjnh57Q')
     network_profile_page = NetworkProfilePage(driver)
 
@@ -15,7 +15,7 @@ def test_login_success(driver):
 
 def test_create_normal_project(driver):
     driver.get(UrlBase().base_url)
-    login_page = LoginPage(driver)
+    login_page = LoginPage()
     login_page.do_lgn_success('bitrixautouser@gmail.com', 'pLUQjnh57Q')
-    projects_list_page = ProjectManagement(driver)
+    projects_list_page = ProjectManagement()
     projects_list_page.create_new_project()

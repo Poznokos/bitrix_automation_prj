@@ -10,24 +10,22 @@ from datetime import datetime
 
 class ProjectManagement(BasePage):
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
+    def __init__(self):
+        super().__init__()
         self.driver.get(UrlBase().base_url + 'company/personal/user/1/tasks/projects/')
         self.prj_list_table = TableElement.locator_xpath('//*[@id="SONET_GROUP_LIST_PROJECT_table"]')
         self.create_project_btn = ButtonElement.locator_id('projectAddButton')
 
     def create_new_project(self):
         self.create_project_btn.click()
-        return CreateProjectForm(self.driver).create_project()
+        return CreateProjectForm().create_project()
 
 
 class CreateProjectForm(BasePage):
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.driver = driver
-        FrameSwitcher(self.driver).switch_to_project_creation_frame()
+    def __init__(self):
+        super().__init__()
+        FrameSwitcher().switch_to_project_creation_frame()
         self.prj_type_project = ButtonElement.locator_xpath(
             '//*[@id="sonet_group_create_popup_form"]/div[1]/div[1]/div[3]/div[2]/div[2]/div[1]/div[2]/div[1]')
         self.prj_type_workgroup = ButtonElement.locator_xpath(
