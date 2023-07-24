@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from framework.url_base.url_base import UrlBase
 from framework.pages.login_page import LoginPage
 from framework.pages.network_profile_page import NetworkProfilePage
@@ -8,14 +10,19 @@ def test_login_success(driver):
     driver.get('https://www.bitrix24.net/')
     login_page = LoginPage()
     login_page.do_lgn_success('bitrixautouser@gmail.com', 'pLUQjnh57Q')
-    network_profile_page = NetworkProfilePage(driver)
+    network_profile_page = NetworkProfilePage()
 
     assert network_profile_page.profile_header.check_presence_of_element()
 
 
 def test_create_normal_project(driver):
+    current_date_time = datetime.now()
+    date_time = current_date_time.strftime("%d/%m/%Y %H:%M:%S")
+    prj_name = 'prj_auto_created ' + date_time
     driver.get(UrlBase().base_url)
     login_page = LoginPage()
     login_page.do_lgn_success('bitrixautouser@gmail.com', 'pLUQjnh57Q')
     projects_list_page = ProjectManagement()
-    projects_list_page.create_new_project()
+    projects_list_page.create_new_project(prj_name)
+
+    assert ProjectManagement().is_project_in_list(prj_name)

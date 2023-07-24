@@ -27,6 +27,11 @@ class BaseElement:
             element = self.driver.find_elements(self.locator_type, self.locator)[index]
             return element
 
+    def find_elements(self):
+        self.wait_for_element()
+        elements = self.driver.find_elements(self.locator_type, self.locator)
+        return elements
+
     def check_presence_of_element(self):
         wait = WebDriverWait(self.driver, self.timeout_limit)
         try:
