@@ -1,3 +1,6 @@
+from time import sleep
+
+from selenium import webdriver
 from selenium.common import TimeoutException
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
@@ -69,3 +72,10 @@ class BaseElement:
     @classmethod
     def set_element_driver(cls, driver):
         cls.driver = driver
+
+    def move_mouse_on_element(self):
+        action = webdriver.ActionChains(self.driver)
+        element = self.find_element()
+        action.move_to_element(element)
+        action.perform()
+

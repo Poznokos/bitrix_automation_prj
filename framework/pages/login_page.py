@@ -19,6 +19,7 @@ class LoginPage(BasePage):
         self.next_button.click()
         self.password_field.send_keys(user_pwd)
         self.next_button.click()
+        sleep(0.1)  # needs to be fixed
 
     def do_lgn_fail(self, user_name, user_pwd):
         self.login_field.send_keys(user_name)
