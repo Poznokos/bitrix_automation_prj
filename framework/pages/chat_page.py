@@ -28,18 +28,14 @@ class ChatPage(BasePage):
             if contact_name_text == contact_type:
                 contact.click()
 
-    def send_message(self, words_count):
-        message = word_generator(words_count)
+    def send_message(self, message):
         self.message_input_field.send_keys(message)
         self.message_input_field.send_enter()
         return message
 
     def is_message_in_chat(self, sent_message):
-        messages_list = self.messages_list_text.find_elements()
-        for message in messages_list:
-            message_text = message.text
-            if message_text == sent_message:
-                return True
-            else:
-                return False
+        if self.messages_list_text.find_elements()[-1].text == sent_message:
+            return True
+        else:
+            return False
 
