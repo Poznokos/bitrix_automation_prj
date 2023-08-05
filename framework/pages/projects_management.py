@@ -1,5 +1,5 @@
 from framework.frames.frame_switcher import FrameSwitcher
-from framework.url_base.url_base import UrlBase
+from data.url_base.url_base import UrlBase
 from framework.elements.button_element import ButtonElement
 from framework.elements.field_element import FieldElement
 from framework.elements.table_element import TableElement

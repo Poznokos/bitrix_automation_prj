@@ -1,0 +1,69 @@
+
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo
+    hostname: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pLUQjnh57Q
+    ports:
+      - '27017:27017'
+
+  mongo-express:
+    image: mongo-express
+    hostname: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: pLUQjnh57Q
+      ME_CONFIG_MONGODB_URL: mongodb://root:pLUQjnh57Q@mongo:27017/
+
+  selenium-chrome:
+    image: selenium/standalone-chrome
+    container_name: chrome
+    hostname: chrome
+    environment:
+      - SE_NODE_MAX_SESSIONS=4
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+    logging:
+      driver: local
+    restart: always
+    ports:
+      - 4444:4444
+      - 7900:7900
+    privileged: true
+    shm_size: 2g
+  selenium-firefox:
+    image: selenium/standalone-firefox
+    container_name: firefox
+    hostname: firefox
+    environment:
+      - SE_NODE_MAX_SESSIONS=4
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
+    logging:
+      driver: local
+    restart: always
+    ports:
+      - 4445:4444
+      - 7901:7900
+    privileged: true
+    shm_size: 2g
+  chrome_video:
+    image: selenium/video:ffmpeg-4.3.1-20230801
+    ports:
+      - 4488:4488
+    volumes:
+      - /tmp/videos:/videos
+    depends_on:
+      - selenium-chrome
+    environment:
+      - DISPLAY_CONTAINER_NAME=chrome
+      - FILE_NAME=chrome_video.mp4

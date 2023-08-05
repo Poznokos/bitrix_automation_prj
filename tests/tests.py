@@ -1,26 +1,28 @@
 from datetime import datetime
 from time import sleep
-
 import pytest
+from qaseio.pytest import qase
 
-from framework.DataSet.data_set import DataSet
+from framework.DataSet.user_data_set import DataSet
 from framework.managers.chat_manager import word_generator
 from framework.pages.base_page import BasePage
 from framework.pages.chat_page import ChatPage
 from framework.pages.left_side_panel import LeftSidePanel
 from framework.pages.login_page import LoginPage
-from framework.pages.network_profile_page import NetworkProfilePage
 from framework.pages.projects_management import ProjectManagement
 
 
-def test_login_success(browser):
+@qase.id(1)
+@qase.title('Basic auth')
+def test_basic_auth(browser):
     login_page = LoginPage()
     login_page.do_lgn_success('bitrixautouser@gmail.com', 'pLUQjnh57Q')
-    network_profile_page = NetworkProfilePage()
 
-    assert network_profile_page.profile_header.check_presence_of_element()
+    assert LeftSidePanel().expand_menu_button.check_presence_of_element()
 
 
+@qase.id(2)
+@qase.title('Create project with default settings')
 def test_create_normal_project(browser):
     current_date_time = datetime.now()
     date_time = current_date_time.strftime("%d/%m/%Y %H:%M:%S")
@@ -36,7 +38,9 @@ def test_create_normal_project(browser):
 chat_message_text = word_generator(count=5)
 
 
-def test_receive_message_via_chat(send_message_via_chat, browser):
+@qase.id(4)
+@qase.title('Receive message in chat')
+def test_send_message_via_chat(receive_message_via_chat, browser):
     login_page = LoginPage()
     login_page.do_lgn_success('bitrixautousermember@gmail.com', 'pLUQjnh57Q')
     sleep(1)
@@ -49,7 +53,7 @@ def test_receive_message_via_chat(send_message_via_chat, browser):
 
 
 @pytest.fixture()
-def send_message_via_chat(service_browser):
+def receive_message_via_chat(service_browser):
     login_page = LoginPage()
     login_page.do_lgn_success('bitrixautouser@gmail.com', 'pLUQjnh57Q')
     sleep(1)
