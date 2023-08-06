@@ -1,0 +1,14 @@
+dynaconf==3.2.0
+pluggy==1.2.0
+pymongo==4.4.1
+PySocks==1.7.1
+pytest==7.4.0
+python-dateutil==2.8.2
+PyYAML==6.0.1
+qase-pytest==5.0.2
+qase-python-commons==2.0.3
+qaseio==3.3.0
+Random-Word==1.0.11
+requests==2.31.0
+selenium==4.10.0
+urllib3==2.0.3
